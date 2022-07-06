@@ -118,10 +118,10 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
 
 
     var domainChange =
-        domainAxis.viewportTranslatePx + localPosition.x - _startPoint.x;
+        domainAxis.viewportTranslatePx + (localPosition.x - _startPoint.x)*newScalingFactor;
 
 
-    print('delta x: ${_startPoint.x - localPosition.x}');
+    print('domainChange: $domainChange');
 
     domainAxis.setViewportSettings(
         newScalingFactor, domainChange,
