@@ -50,7 +50,7 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
   /// visible.
   ///
   /// TODO: Dynamic max based on data range?
-  final _maxScalingFactor = 50.0;
+  var _maxScalingFactor = 5.0;
 
   @override
   bool onDragStart(Point<double> localPosition) {
@@ -64,7 +64,11 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     _scalingFactor = chart!.domainAxis!.viewportScalingFactor;
     var _range = chart!.domainAxis!.range;
     var _runtimeType = chart!.domainAxis!.tickProvider.runtimeType;
-    print('range: $_range \n\n type: _runtimeType');
+    print('range: $_range \n\n type: $_runtimeType');
+    if (_runtimeType == DateTime){
+      print('runtime is Datetime');
+    }
+    _maxScalingFactor = (_range!.max - _range.min) as double;
 
     _isZooming = true;
 
