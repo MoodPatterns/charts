@@ -119,12 +119,12 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     print('delta x: ${_startPoint.x - localPosition.x}');
 
     domainAxis.setViewportSettings(
-        newScalingFactor, domainAxis.viewportTranslatePx,
+        newScalingFactor, _startPoint.x - localPosition.x, //domainAxis.viewportTranslatePx,
         drawAreaWidth: chart.drawAreaBounds.width,
         drawAreaHeight: chart.drawAreaBounds.height);
 
     chart.redraw(skipAnimation: true, skipLayout: true);
-
+    _startPoint = localPosition;
     return true;
   }
 
