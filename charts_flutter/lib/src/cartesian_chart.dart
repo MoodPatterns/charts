@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'dart:collection' show LinkedHashMap;
+import 'package:flutter/material.dart' show Key;
 import 'package:meta/meta.dart' show immutable, protected;
 
 import 'package:charts_common/common.dart' as common
@@ -42,6 +43,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
 
   CartesianChart(
     List<common.Series<dynamic, D>> seriesList, {
+    Key? key,
     bool? animate,
     Duration? animationDuration,
     this.domainAxis,
@@ -59,6 +61,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
     this.flipVerticalAxis,
   }) : super(
           seriesList,
+          key: key,
           animate: animate,
           animationDuration: animationDuration,
           defaultRenderer: defaultRenderer,

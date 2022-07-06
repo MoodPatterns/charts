@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'dart:collection' show LinkedHashMap;
+import 'package:flutter/material.dart' show Key;
 
 import 'package:charts_common/common.dart' as common
     show
@@ -41,6 +42,7 @@ class TimeSeriesChart extends CartesianChart<DateTime> {
   /// be used for the time axis. If none specified, local date time is used.
   TimeSeriesChart(
     List<common.Series<dynamic, DateTime>> seriesList, {
+    Key? key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,
@@ -58,6 +60,7 @@ class TimeSeriesChart extends CartesianChart<DateTime> {
     UserManagedState<DateTime>? userManagedState,
   }) : super(
           seriesList,
+          key: key,
           animate: animate,
           animationDuration: animationDuration,
           domainAxis: domainAxis,
