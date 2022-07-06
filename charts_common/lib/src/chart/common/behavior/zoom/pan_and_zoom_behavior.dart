@@ -66,9 +66,9 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     var _range = chart!.domainAxis!.range;
     var _runtimeType = chart!.domainAxis!.tickProvider.runtimeType;
     if (_runtimeType == AutoAdjustingDateTimeTickProvider){
-      _maxScalingFactor = min(_range!.max * 1.0 - _range.min * 1.0, 5.0);
+      _maxScalingFactor = max(_range!.max * 1.0 - _range.min * 1.0, 5.0);
     } else {
-      _maxScalingFactor = min((_range!.max * 1.0 - _range.min * 1.0)/5, 5.0);
+      _maxScalingFactor = max((_range!.max * 1.0 - _range.min * 1.0)/5, 5.0);
     }
 
     _isZooming = true;
@@ -113,7 +113,7 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     print('point: $localPosition \nscale: $scale \nnewScalingFactor: $newScalingFactor \n domainAxis.viewportTranslatePx: ${domainAxis.viewportTranslatePx}');
 
     domainAxis.setViewportSettings(
-        newScalingFactor, domainAxis.viewportTranslatePx,
+        newScalingFactor, 0.0,//domainAxis.viewportTranslatePx,
         drawAreaWidth: chart.drawAreaBounds.width,
         drawAreaHeight: chart.drawAreaBounds.height);
 
