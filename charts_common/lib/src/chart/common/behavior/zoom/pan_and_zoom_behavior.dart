@@ -51,7 +51,9 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
   /// visible.
   ///
   /// TODO: Dynamic max based on data range?
-  var _maxScalingFactor = 5.0;
+  double _maxScalingFactor = 5.0;
+
+  Point<double> _startPoint = Point<double>(0,0);
 
   @override
   bool onDragStart(Point<double> localPosition) {
@@ -60,6 +62,8 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     }
 
     super.onDragStart(localPosition);
+
+    _startPoint = localPosition;
 
     // Save the current scaling factor to make zoom events relative.
     _scalingFactor = chart!.domainAxis!.viewportScalingFactor;
@@ -112,8 +116,10 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
 
     print('point: $localPosition \nscale: $scale \nnewScalingFactor: $newScalingFactor \n domainAxis.viewportTranslatePx: ${domainAxis.viewportTranslatePx}');
 
+    print('delta x: ${_startPoint.x - localPosition.x}');
+
     domainAxis.setViewportSettings(
-        newScalingFactor, 0.0,//domainAxis.viewportTranslatePx,
+        newScalingFactor, domainAxis.viewportTranslatePx,
         drawAreaWidth: chart.drawAreaBounds.width,
         drawAreaHeight: chart.drawAreaBounds.height);
 
