@@ -114,12 +114,17 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     final newScalingFactor =
         min(max(_scalingFactor * scale, _minScalingFactor), _maxScalingFactor);
 
-    print('point: $localPosition \nscale: $scale \nnewScalingFactor: $newScalingFactor \n domainAxis.viewportTranslatePx: ${domainAxis.viewportTranslatePx}');
+    print('point: $localPosition \nscale: $scale \nnewScalingFactor: $newScalingFactor');
+
+
+    var domainChange =
+        domainAxis.viewportTranslatePx + localPosition.x - _startPoint.x;
+
 
     print('delta x: ${_startPoint.x - localPosition.x}');
 
     domainAxis.setViewportSettings(
-        newScalingFactor, domainAxis.viewportTranslatePx*-1,
+        newScalingFactor, domainChange,
         drawAreaWidth: chart.drawAreaBounds.width,
         drawAreaHeight: chart.drawAreaBounds.height);
 
