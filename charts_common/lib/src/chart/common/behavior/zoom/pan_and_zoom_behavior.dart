@@ -65,12 +65,11 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     _scalingFactor = chart!.domainAxis!.viewportScalingFactor;
     var _range = chart!.domainAxis!.range;
     var _runtimeType = chart!.domainAxis!.tickProvider.runtimeType;
-    print('range: $_range \n\n type: $_runtimeType');
     if (_runtimeType == AutoAdjustingDateTimeTickProvider){
-      print('runtime is AutoAdjustingDateTimeTickProvider');
+      _maxScalingFactor = min(_range!.max * 1.0 - _range.min * 1.0, 5.0);
+    } else {
+      _maxScalingFactor = min((_range!.max * 1.0 - _range.min * 1.0)/5, 5.0);
     }
-    _maxScalingFactor = _range!.max * 1.0 - _range.min * 1.0;
-    print('_maxScalingFactor: $_maxScalingFactor');
 
     _isZooming = true;
 
@@ -110,6 +109,8 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     // zooming in so far that we show nothing useful.
     final newScalingFactor =
         min(max(_scalingFactor * scale, _minScalingFactor), _maxScalingFactor);
+
+    print('point: $localPosition \nscale: $scale \nnewScalingFactor: $newScalingFactor \n domainAxis.viewportTranslatePx: ${domainAxis.viewportTranslatePx}');
 
     domainAxis.setViewportSettings(
         newScalingFactor, domainAxis.viewportTranslatePx,
