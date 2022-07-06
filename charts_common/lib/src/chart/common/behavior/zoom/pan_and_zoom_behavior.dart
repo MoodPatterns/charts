@@ -62,6 +62,10 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
 
     // Save the current scaling factor to make zoom events relative.
     _scalingFactor = chart!.domainAxis!.viewportScalingFactor;
+    var _range = chart!.domainAxis!.range;
+    var _runtimeType = chart!.domainAxis!.tickProvider.runtimeType;
+    print('range: $_range \n\n type: _runtimeType');
+
     _isZooming = true;
 
     return true;
