@@ -17,6 +17,7 @@ import 'dart:math' show min, max, Point;
 
 import 'package:meta/meta.dart' show protected;
 
+import '../../../../../common.dart';
 import 'pan_behavior.dart';
 import 'panning_tick_provider.dart' show PanningTickProviderMode;
 
@@ -65,10 +66,11 @@ class PanAndZoomBehavior<D> extends PanBehavior<D> {
     var _range = chart!.domainAxis!.range;
     var _runtimeType = chart!.domainAxis!.tickProvider.runtimeType;
     print('range: $_range \n\n type: $_runtimeType');
-    if (_runtimeType == DateTime){
-      print('runtime is Datetime');
+    if (_runtimeType == AutoAdjustingDateTimeTickProvider){
+      print('runtime is AutoAdjustingDateTimeTickProvider');
     }
-    _maxScalingFactor = (_range!.max - _range.min) as double;
+    _maxScalingFactor = _range!.max * 1.0 - _range.min * 1.0;
+    print('_maxScalingFactor: $_maxScalingFactor');
 
     _isZooming = true;
 
